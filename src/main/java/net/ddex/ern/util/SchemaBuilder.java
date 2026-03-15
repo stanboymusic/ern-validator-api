@@ -36,7 +36,8 @@ public class SchemaBuilder {
             List<String> schemaFiles = loadSchemaFiles(schemaKey);
             Source[] sources = new Source[schemaFiles.size()];
             factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            // Allow local XSD includes (e.g. avs*.xsd) packaged with the validator.
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "file");
             for (int i = 0; i < schemaFiles.size(); i++) {
                 sources[i] = new StreamSource(new File(String.format("%s/%s/%s", SchemaBuilder.FILE_PATH_PREFIX, schemaVersion, schemaFiles.get(i))));
             }
